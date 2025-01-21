@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Hospital Management System</h1>
+    <p>Choose your role:</p>
+    <ul>
+        <li><a href="{% url 'patient_login' %}">Patient</a></li>
+        <li><a href="{% url 'doctor_login' %}">Doctor</a></li>
+        <li><a href="{% url 'admin_login' %}">Admin</a></li>
+    </ul>
+</body>
+</html> 
