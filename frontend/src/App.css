@@ -1,0 +1,28 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  padding: 2em;
+}
+
+.button-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.role-button{
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
