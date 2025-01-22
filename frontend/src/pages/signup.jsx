@@ -14,11 +14,33 @@ const Login = () => {
   const location = useLocation()
   const role = location.state?.role || 'guest'
   
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Signup attempt for role:', role, 'with credentials:', credentials)
-    // Add your signup logic here
-    navigate('/login')
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials)
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log('Signup successful:', data);
+        // Show success message to user
+        alert('Signup successful! Please login.');
+        navigate('/login');
+      } else {
+        // Handle error response from server
+        console.error('Signup failed:', data.message);
+        alert(data.message || 'Signup failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      alert('An error occurred during signup. Please try again.');
+    }
   }
 
   return (
