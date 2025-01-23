@@ -1,23 +1,32 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const Login = () => {
-  const [credentials, setCredentials] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    role: ''
-  })
+const Signup = () => {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const role = location.state?.role || 'patient'
+    console.log(location.state.role)
+    const [credentials, setCredentials] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        role: role
+    })
+  
 
-  const navigate = useNavigate()
-  const location = useLocation()
-  const role = location.state?.role || 'guest'
+  
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (credentials.password !== credentials.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    console.log('Signup attempt for role:', role, 'with credentials:', credentials)
     try {
-      const response = await fetch('http://localhost:5000/api/auth/signup', {
+      const response = await fetch('http://localhost:8000/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +40,7 @@ const Login = () => {
         console.log('Signup successful:', data);
         // Show success message to user
         alert('Signup successful! Please login.');
-        navigate('/login');
+        navigate('/login', { state: { role } });
       } else {
         // Handle error response from server
         console.error('Signup failed:', data.message);
@@ -81,9 +90,9 @@ const Login = () => {
         </div>
         <div className="form-group">
           <select value={credentials.role} onChange={(e) => setCredentials({...credentials, role: e.target.value})}>
-            <option value="Patient">Patient</option>
-            <option value="Doctor">Doctor</option>
-            <option value="Admin">Admin</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="admin">Admin</option>
           </select>
         </div>
         <button type="submit">Signup</button>
@@ -97,4 +106,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup

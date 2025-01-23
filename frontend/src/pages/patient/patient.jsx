@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function patient() {
+const Patient = () => {
+  const navigate = useNavigate()
   return (
     <div>
         <h1>Patient Dashboard</h1>
@@ -10,4 +12,4 @@ function patient() {
   )
 }
 
-export default patient
+export default Patient

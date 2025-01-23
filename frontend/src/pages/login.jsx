@@ -2,19 +2,34 @@ import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const location = useLocation()
   const [credentials, setCredentials] = useState({
     username: '',
-    password: ''
+    password: '',
+    role: location.state?.role
   })
 
   const navigate = useNavigate()
-  const location = useLocation()
-  const role = location.state?.role || 'guest'
-  
-  const handleSubmit = (e) => {
+
+  const role = location.state?.role || 'patient'
+  console.log(location.state?.role)
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('Login attempt for role:', role, 'with credentials:', credentials)
-    // Add your login logic here
+    const response = await fetch('http://localhost:8000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+    if (response.ok) {
+      navigate(`/${role}`)
+    } else {
+      alert('Invalid credentials')
+    }
   }
 
   return (
@@ -42,7 +57,7 @@ const Login = () => {
       <div className="button-container">
         <button onClick={() => navigate('/')}>Back to Home</button>
         <p>New user ?</p>
-        <button onClick={() => navigate('/signup')}>Sign Up</button>
+        <button onClick={() => navigate('/signup', { state: {role}})}>Sign Up</button>
       </div>
     </div>
   )

@@ -2,6 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import Login from './pages/login'
 import Signup from './pages/signup'
+import Patient from './pages/patient/patient'
+import Doctor from './pages/doctor/doctor'
+import Admin from './pages/admin/admin'
 import './App.css'
 
 const HomePage = () => {
@@ -49,6 +52,9 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/patient" element={<Patient />} />
+        <Route path="/doctor" element={<Doctor />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   )
