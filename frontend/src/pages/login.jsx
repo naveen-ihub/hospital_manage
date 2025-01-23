@@ -26,7 +26,7 @@ const Login = () => {
       body: JSON.stringify(credentials),
     });
     if (response.ok) {
-      navigate(`/${role}`)
+      navigate(`/${credentials.role}`)
     } else {
       alert('Invalid credentials')
     }
@@ -62,7 +62,7 @@ const Login = () => {
       <div className="button-container">
         <button onClick={() => navigate('/')}>Back to Home</button>
         <p>New user ?</p>
-        <button onClick={() => navigate('/signup', { state: {role}})}>Sign Up</button>
+        <button onClick={() => navigate('/signup', { state: {role: credentials.role}})}>Sign Up</button>
       </div>
     </div>
   )
