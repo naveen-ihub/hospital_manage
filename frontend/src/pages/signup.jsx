@@ -2,18 +2,20 @@ import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const role = location.state?.role || 'patient'
+  console.log(location.state?.role)
   const [credentials, setCredentials] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
-    role: ''
+    role: role
   })
-  console.log(location.state?.role)
 
-  const navigate = useNavigate()
-  const location = useLocation()
-  const role = location.state?.role || 'patient'
+
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ const Signup = () => {
         console.log('Signup successful:', data);
         // Show success message to user
         alert('Signup successful! Please login.');
-        navigate('/login', { state: { role } });
+        navigate('/login', { state: { role: credentials.role } });
       } else {
         // Handle error response from server
         console.error('Signup failed:', data.message);
@@ -51,7 +53,7 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      <h2>Signup as {role}</h2>
+      <h2>Signup as {credentials.role}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
@@ -97,7 +99,7 @@ const Signup = () => {
       <div className="button-container">
         <button onClick={() => navigate('/')}>Back to Home</button>
         <p>Already have an account ?</p>
-        <button onClick={() => navigate('/login')}>Login</button>
+        <button onClick={() => navigate('/login', { state: { role: credentials.role } })}>Login</button>
       </div>
     </div>
   )

@@ -34,8 +34,13 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h2>Login as {role}</h2>
+      
       <form onSubmit={handleSubmit}>
+      <h2>Login as <select value={credentials.role} onChange={(e) => setCredentials({...credentials, role: e.target.value})}>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="admin">Admin</option>
+        </select></h2>
         <div className="form-group">
           <input
             type="text"
