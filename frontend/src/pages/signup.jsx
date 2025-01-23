@@ -2,21 +2,18 @@ import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
-    const role = location.state?.role || 'patient'
-    console.log(location.state.role)
-    const [credentials, setCredentials] = useState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        role: role
-    })
-  
+  const [credentials, setCredentials] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: ''
+  })
+  console.log(location.state?.role)
 
-  
-
+  const navigate = useNavigate()
+  const location = useLocation()
+  const role = location.state?.role || 'patient'
   
   const handleSubmit = async (e) => {
     e.preventDefault();
